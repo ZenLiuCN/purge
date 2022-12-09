@@ -166,6 +166,7 @@ func load(pwd string, predicate func(p string) bool) (gitignore.Matcher, gitigno
 type Walker struct {
 	ignores  []gitignore.Matcher
 	keep     []gitignore.Matcher
+	just     gitignore.Matcher
 	patterns []string
 	pwd      string
 	test     bool
@@ -189,13 +190,22 @@ func (w *Walker) Initial() {
 	} else {
 		w.keep = append(w.keep, Keep)
 	}
+	if just != "" {
+		w.just = gitignore.NewMatcher([]gitignore.Pattern{gitignore.ParsePattern(just, nil)})
+	}
 }
 func (w *Walker) push(p string) {
+	if w.just != nil {
+		return
+	}
 	i, k := load(p, w.predicate)
 	w.ignores = append(w.ignores, i)
 	w.keep = append(w.keep, k)
 }
 func (w *Walker) pop() {
+	if w.just != nil {
+		return
+	}
 	if len(w.ignores) == 1 {
 		return
 	}
@@ -207,6 +217,9 @@ func (w *Walker) pop() {
 }
 func (w *Walker) shouldPurge(pth string, isDir bool) (bool, bool) {
 	tar := strings.Split(pth, string(filepath.Separator))
+	if w.just != nil {
+		return w.just.Match(tar, isDir), false
+	}
 	matched := false
 	for _, ignore := range w.ignores {
 		if ignore.Match(tar, isDir) {

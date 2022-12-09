@@ -17,6 +17,7 @@ purge is a simple ugly command line tool for clean temporary files in file tree.
 `purge -l`  running under current working directory and logging purge list into log file.
 
 `purge -p`  execute purge and print in console.
+`purge -p -j=pattern`  execute purge with one pattern and print in console.
 
 ## flags and parameters
 
@@ -28,6 +29,8 @@ purge is a simple ugly command line tool for clean temporary files in file tree.
 6. `-h` print simple help.
 7. `-i=pattern -i=pattern` temporary keep patterns
 8. `-f=file-name` temporary loading ignore files
+8. `-j=pattern` just purge files with exactly one pattern, config and other parameters include `.gitignore` are not
+   effective.
 
 ## config
 
@@ -42,4 +45,5 @@ purge is a simple ugly command line tool for clean temporary files in file tree.
 use same format of `.gitignore`, but file matched any pattern in `.keep` won't been purged.
 
 ## license
+
 DO ANYTHING U LIKE BY FORK 

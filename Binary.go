@@ -11,6 +11,7 @@ var (
 	ignored    strs
 	ignoreFile strs
 	dir        string
+	just       string
 	test       bool
 	help       bool
 	removed    bool
@@ -33,6 +34,7 @@ func main() {
 	flag.Var(&ignoreFile, "f", "extra ignore files (will be purge) for current run")
 	flag.BoolVar(&test, "t", false, "test will print extra info and not real purge.")
 	flag.StringVar(&dir, "d", "", "target dir,default is cwd")
+	flag.StringVar(&just, "j", "", "just purge with one pattern,config and other setting won't take effect.")
 	flag.BoolVar(&logging, "l", false, "logging to file,default print at console")
 	flag.BoolVar(&purge, "p", false, "do purge when test not set")
 	flag.BoolVar(&help, "h", false, "print help")
