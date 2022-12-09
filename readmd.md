@@ -40,3 +40,6 @@ purge is a simple ugly command line tool for clean temporary files in file tree.
 ## .keep file
 
 use same format of `.gitignore`, but file matched any pattern in `.keep` won't been purged.
+
+## license
+DO ANYTHING U LIKE BY FORK 
