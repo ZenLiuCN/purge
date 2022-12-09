@@ -158,7 +158,7 @@ func load(pwd string, predicate func(p string) bool) (gitignore.Matcher, gitigno
 	}
 	var pa1 []gitignore.Pattern
 	for _, s := range p {
-		pa = append(pa1, gitignore.ParsePattern(s, nil))
+		pa1 = append(pa1, gitignore.ParsePattern(s, nil))
 	}
 	return gitignore.NewMatcher(pa), gitignore.NewMatcher(pa1)
 }
@@ -240,10 +240,16 @@ func (w *Walker) shouldPurge(pth string, isDir bool) (bool, bool) {
 		for _, k := range w.keep {
 			if k != nil && k.Match(tar, isDir) {
 				if w.test {
-					log.Print("ignore by Keep:")
+					log.Print("ignore by Keep:" + pth)
 				}
 				return false, true
 			}
+		}
+		return true, false
+	}
+	for _, k := range w.keep {
+		if k != nil && k.Match(tar, isDir) {
+			return matched, true
 		}
 	}
 	return matched, false
