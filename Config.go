@@ -54,7 +54,7 @@ func initial(test bool) {
 		}
 	}
 	if logging {
-		f, _ = os.OpenFile(path.Join(Pwd, "purge_"+time.Now().Format("2006-01-02_15-04-05")+".log"), os.O_CREATE|os.O_APPEND|os.O_WRONLY, os.ModePerm)
+		f, _ = os.OpenFile(path.Join(Pwd, "purge_"+time.Now().Format("2006-01-02_15")+".log"), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, os.ModePerm)
 		log = logger.New(f, "", logger.Ldate|logger.Ltime)
 	} else {
 		log = logger.Default()
