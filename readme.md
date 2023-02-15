@@ -1,3 +1,4 @@
+# USE newer [cleaner](https://github.com/ZenLiuCN/cleaner)
 # purge
 
 purge is a simple ugly command line tool for clean temporary files in file tree.
